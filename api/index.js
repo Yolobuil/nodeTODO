@@ -38,3 +38,20 @@ const customer ={
 customers.push(customer);
 res.send(customer);
 });
+
+// 顧客情報の更新（putもpatchでもどちらでも更新できる）
+// セミコロンを打つとIDという属性を任意に決めることができる（クエリパラメータ？）
+app.put("/api/customers/:id", (req,res) => {
+  // req.params.idはパラメータで受け取ったIDを指している（stringで受け取るっぽい？）
+  const customer = customers.find((c) => c.id === parseInt(req.params.id));
+  customer.title = req.body.title;
+  res.send(customer);
+})
+
+app.delete("/api/customers/:id", (req,res) => {
+  const customer = customers.find((c) => c.id === parseInt(req.params.id));
+  const index = customers.indexOf(customer);
+  // indexの番号1つだけ削除する
+  customers.splice(index,1);
+   res.send(customer);
+})
