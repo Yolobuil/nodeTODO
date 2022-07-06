@@ -1,7 +1,7 @@
 // importのようなもの
 const express =　require("express");
 const app = express();
-const PORT = 5000;
+// const PORT = 5000;
 // josnを使うことを明示的に示す
 app.use(express.json());
 
