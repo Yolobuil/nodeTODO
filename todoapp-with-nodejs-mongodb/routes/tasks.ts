@@ -1,27 +1,18 @@
-
+// routesはルート設計のためだけのファイル（アルゴリズムを書くと煩雑に・・・）
 const expressRouter = require("express");
 const router = expressRouter.Router();
+const taskApi = require("../controllers/tasks");
 
 // v1はバージョン１（エンドポイントを変えたり変えていく予定がある場合はv２などに変更する。）
 // アップデート予定がなければ/api/tasksでOK　
-router.get("/", (req:any,res:any) => {
-  res.send("タスクを全て取得しました。");
-});
+router.get("/", taskApi.getAllTasks);
 
-router.post("/", (req:any,res:any) => {
-  res.send("タスクを新規作成しました。");
-});
+router.post("/", taskApi.createTask);
 
-router.get("/:id", (req:any,res:any) => {
-  res.send("ある特定のタスクを取得しました。");
-});
+router.get("/:id", taskApi.getSingleTask);
 
-router.patch("/:id", (req:any,res:any) => {
-  res.send("ある特定のタスクを更新しました。");
-});
+router.patch("/:id", taskApi.updateTask);
 
-router.delete("/:id", (req:any,res:any) => {
-  res.send("ある特定のタスクを削除しました。");
-});
+router.delete("/:id", taskApi.deleteTask);
 
 module.exports = router;

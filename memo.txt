@@ -113,3 +113,6 @@ DB
 axiosでAPIコールする
 ・サーバ→DBの流れ
 node.jsとmongoDBをつなぐ、mongooseというライブラリを使用
+
+●mongoDBでどういうデータを格納する？
+name(タスク名):string,completed(完了フラグ):boolean,id(一意 mongodbでデータを作成すると自動でシーケンスが割り振られるらしい)
