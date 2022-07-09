@@ -112,7 +112,20 @@ DB
 ・クライアント→サーバ流れ
 axiosでAPIコールする
 ・サーバ→DBの流れ
-node.jsとmongoDBをつなぐ、mongooseというライブラリを使用
+node.jsとmongoDBをつなぐ、mongooseというライブラリを使用(サーバのライブラリ)
+
 
 ●mongoDBでどういうデータを格納する？
 name(タスク名):string,completed(完了フラグ):boolean,id(一意 mongodbでデータを作成すると自動でシーケンスが割り振られるらしい)
+
+●dotenvとは
+情報の秘匿性をあげるライブラリ
+// この中に隠したいソースやURLを入れる
+
+●.gitignode
+gitで無視して欲しいファイル
+→ローカルサーバでしか確認できない
+
+●Createのテスト
+postmanでposteメソッドに、コールするURLを指定。
+その後、bodyのrawで（Textではなく）JSON形式で記述する
