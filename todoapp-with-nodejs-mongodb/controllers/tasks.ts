@@ -1,5 +1,3 @@
-import { readSync } from "fs";
-
 const Task = require("../models/Task");
 
 const getAllTasks = async (req:any,res:any) => {

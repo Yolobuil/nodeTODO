@@ -6,6 +6,8 @@ const taskRoute = require("./routes/tasks");
 const connect = require('./db/connect');
 
 app.use(express.json());
+// publicを作って、index.htmlを使うように指示している
+app.use(express.static("./public"));
 
 // 下記の宣言（configメソッドでエンブファイルを取得できる）
 require("dotenv").config();
