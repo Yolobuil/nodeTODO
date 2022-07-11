@@ -1,5 +1,7 @@
 // divタグのtasksの要素を取得（class名を指定する）
 const tasksDOM = document.querySelector(".tasks");
+const formDOM = document.querySelector(".task-form");
+const taskInputDOM = document.querySelector(".task-input");
 // HTMLファイル内ではtsファイルは読み込めないっぽい？（実行ファイルじゃないから？）
 // because its MIME type ('video/mp2t') is not executable.
 // /api/v1/tasksからタスクを読みこむ
@@ -24,7 +26,7 @@ const allTasks = tasks.map((task) => {
     <i class="fas fa-edit"></i>
   </a>
   <!-- ゴミ箱button -->
-  <button type="button" class="delete-btn">
+  <button type="button" class="delete-btn" data-id="${_id}">
       <i class="fas fa-trash"></i>
   </button>
 </div>
@@ -38,3 +40,42 @@ tasksDOM.innerHTML = allTasks;
 };
 
 showTasks();
+
+// タスクを新規作成する
+// eventを取得する理由は送信ボタンを押すと、リロードされてしまうが、非同期通信のため、それは不要だから。（eventで阻止）
+formDOM.addEventListener("submit",async (event) => {
+
+// ボタン押下後の自動レンダリング解除
+event.preventDefault();
+// テキストフィールドから取得したvalueをnameに格納（右のname）
+const name = taskInputDOM.value;
+try{
+  // 左のnameはTaskSchemaで作ったあnme属性
+await axios.post("/api/v1/tasks",{name:name});
+showTasks();
+taskInputDOM.value = "";
+}catch(err){
+  console.log(err);
+}
+});
+
+// タスクを削除する
+// eventを取得する理由は送信ボタンを押すと、リロードされてしまうが、非同期通信のため、それは不要だから。（eventで阻止）
+tasksDOM.addEventListener("click",async (event) => {
+
+const element =event.target;
+
+// エレメントの親にdeleteボタンが含まれているならば
+if(element.parentElement.classList.contains("delete-btn")){
+  // 親要素のIDを取得（＝ボタンに付与した各TODOのID）
+  const id = element.parentElement.dataset.id;
+try{
+  // 左のnameはTaskSchemaで作ったあnme属性
+await axios.delete(`/api/v1/tasks/${id}`);
+showTasks();
+taskInputDOM.value = "";
+}catch(err){
+  console.log(err);
+}
+}
+});

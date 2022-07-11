@@ -131,6 +131,6 @@ postmanでposteメソッドに、コールするURLを指定。
 その後、bodyのrawで（Textではなく）JSON形式で記述する
 
 ●クライアントとサーバの繋ぎ方
-axiosを使用
+axiosを使用(JS内で記述)
 →API（エンドポイント）にリクエストを投げる
 →サーバで解釈後、mongooseにリクエスト
