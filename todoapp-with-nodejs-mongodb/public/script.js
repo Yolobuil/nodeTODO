@@ -2,6 +2,7 @@
 const tasksDOM = document.querySelector(".tasks");
 const formDOM = document.querySelector(".task-form");
 const taskInputDOM = document.querySelector(".task-input");
+const formAlertDOM = document.querySelector(".form-alert");
 // HTMLファイル内ではtsファイルは読み込めないっぽい？（実行ファイルじゃないから？）
 // because its MIME type ('video/mp2t') is not executable.
 // /api/v1/tasksからタスクを読みこむ
@@ -9,6 +10,12 @@ const taskInputDOM = document.querySelector(".task-input");
 const showTasks = async () => {
 try{
 const {data:tasks} = await axios.get("/api/v1/tasks");
+
+// タスクが1つもない時
+if(tasks.length < 1){
+  tasksDOM.innerHTML = `<h5 class="empty-list">タスクがありません。</h5>`
+  return;
+}
 
 // タスクを出力する
 const allTasks = tasks.map((task) => {
@@ -36,6 +43,7 @@ const allTasks = tasks.map((task) => {
 tasksDOM.innerHTML = allTasks;
 }catch(err){
   console.log(err);
+
 }
 };
 
@@ -54,9 +62,21 @@ try{
 await axios.post("/api/v1/tasks",{name:name});
 showTasks();
 taskInputDOM.value = "";
+// none -> blockに戻さないと、表示されない。
+formAlertDOM.style.display = "block";
+formAlertDOM.textContent = "タスクを追加しました";
+formAlertDOM.classList.add("text-success");
 }catch(err){
   console.log(err);
+  // none -> blockに戻さないと、表示されない。
+formAlertDOM.style.display = "block";
+formAlertDOM.innerHTML = "無効です。もう一度やり直してください";
 }
+// 3000ミリ秒(正常系でも異常系でも)
+setTimeout(() => {
+  formAlertDOM.style.display = "none";
+  formAlertDOM.classList.remove("text-success");
+},3000)
 });
 
 // タスクを削除する
