@@ -29,7 +29,7 @@ const allTasks = tasks.map((task) => {
   </h5>
   <div class="task-links">
   <!-- 編集リンク -->
-  <a href="#" class="edit-link">
+  <a href="edit.html?id=${_id}" class="edit-link">
     <i class="fas fa-edit"></i>
   </a>
   <!-- ゴミ箱button -->
