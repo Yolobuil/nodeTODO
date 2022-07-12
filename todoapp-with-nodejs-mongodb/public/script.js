@@ -23,7 +23,8 @@ const allTasks = tasks.map((task) => {
   const {completed,_id,name} = task;
 
   // バッククウォテーション
-  return `<div class="single-task">
+  // classはスペースで複数個付与できるっぽい？
+  return `<div class="single-task ${completed && "task-completed"}">
   <h5>
     <span><i class="far fa-check-circle"></i></span>${name}
   </h5>
